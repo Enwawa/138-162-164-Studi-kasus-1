@@ -1,39 +1,59 @@
 #include <iostream>
-#include <iomanip>
-
 using namespace std;
 
-int main() {
-    const int harga_ayam_goreng = 17000;
-    const int harga_ayam_bakar = 21000;
-    const double diskon_persentase = 0.10;
-    const int batas_diskon = 45000;
-
-    int jumlah_goreng, jumlah_bakar;
-    double total_harga, total_diskon = 0, total_bayar;
-
-    cout << "Masukkan jumlah ayam goreng: ";
-    cin >> jumlah_goreng;
-    cout << "Masukkan jumlah ayam bakar: ";
-    cin >> jumlah_bakar;
-
-    total_harga = (jumlah_goreng * harga_ayam_goreng) + (jumlah_bakar * harga_ayam_bakar);
-
-    if (total_harga > batas_diskon) {
-        total_diskon = total_harga * diskon_persentase;
-    }
-
-    total_bayar = total_harga - total_diskon;
-
-    cout << "\n===== STRUK PEMBAYARAN =====\n";
-    cout << "Ayam Goreng  : " << jumlah_goreng << " x Rp" << harga_ayam_goreng << " = Rp" << jumlah_goreng * harga_ayam_goreng << endl;
-    cout << "Ayam Bakar   : " << jumlah_bakar << " x Rp" << harga_ayam_bakar << " = Rp" << jumlah_bakar * harga_ayam_bakar << endl;
-    cout << "----------------------------------\n";
-    cout << "Total Harga  : Rp" << total_harga << endl;
-    cout << "Diskon (10%) : Rp" << total_diskon << endl;
-    cout << "Total Bayar  : Rp" << total_bayar << endl;
-    cout << "==================================\n";
-
-    return 0;
+float promo(int diskon){
+	return diskon * 0.1;
 }
 
+int main(){
+	
+	int pesan,inputGoreng=0,inputBakar=0,jumlahGoreng=0,jumlahBakar=0,totalHargaGoreng=0,totalHargaBakar=0;
+	float totalSemua=0;
+	char tambah;
+	ulang:
+	cout <<"KEDAI AYAM KOTA X" << endl;
+	cout <<"1. Ayam Goreng | Rp17.000" << endl;
+	cout <<"2. Ayam Bakar  | Rp21.000" << endl;
+	cout <<"SPECIAL PROMO: diskon 10% untuk pembelian dengan total diatas Rp45.000" << endl << endl;
+	do{
+	cout <<"Pesan menu(1/2): " ; 
+	cin >> pesan;
+	
+	switch(pesan){
+		case 1:
+			cout <<"Masukkan banyak Ayam Goreng yang ingin dipesan: ";
+			cin >> inputGoreng;
+			jumlahGoreng+=inputGoreng;
+			totalHargaGoreng+=inputGoreng * 17000;
+			break;
+		case 2:
+			cout <<"Masukkan banyak Ayam Bakar yang ingin dipesan: ";
+			cin >> inputBakar;
+			jumlahBakar+=inputBakar;
+			totalHargaBakar+=inputBakar * 21000;
+			break;
+		default:
+			cout <<"ERROR : Input yang anda masukkan invalid!" << endl << endl ;
+			goto ulang;
+			break;
+	}
+		cout <<"Apakah ingin menambah pesanan?(y/n): ";
+		cin >> tambah;
+		
+	}
+	while(tambah=='Y' || tambah=='y');
+	
+	totalSemua = totalHargaGoreng + totalHargaBakar;
+	system("cls");
+	cout <<"----------KEDAI AYAM KOTA X----------" << endl;
+	cout <<"| Ayam Goreng \t\t: " << jumlahGoreng << " x Rp17.000 = "  << "Rp" << totalHargaGoreng << endl;
+	cout <<"| Ayam Bakar \t\t: " << jumlahBakar << " x Rp21.000 = "  << "Rp" << totalHargaBakar << endl;
+	if(totalSemua>=45000){
+		cout <<"| Diskon Promo 10% \t: " << totalSemua << " x 10%  = " << "Rp" << promo(totalSemua) << endl;
+		cout <<"| Total Harga \t\t: " << totalSemua << " - " << promo(totalSemua) << " = " << totalSemua - promo(totalSemua) << endl;
+	}
+	else{
+		cout <<"| Total Harga \t\t: " << "Rp" << totalSemua << endl;
+	}
+	cout << "\nTerima kasih sudah memesan, mohon menunggu pesanan anda :)" << endl;
+}
